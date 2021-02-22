@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  client:
+    env_file:
+      - ./client/.env
+  api:
+    env_file:
+      - ./api/.env
+  mysql:
+    env_file:
+      - ./api/.env.mysql

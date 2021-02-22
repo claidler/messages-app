@@ -1,0 +1,10 @@
+.username {
+	position: fixed;
+	top: 10px;
+	right: 20px;
+	font-size: 14px;
+}
+.logoutButton {
+	margin-left: 10px;
+	padding: 5px 10px;
+}
