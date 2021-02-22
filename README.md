@@ -1,4 +1,4 @@
-#Private messages app
+# Private messages app
 
 To run the app simply clone the project and run docker-compose up from the root directory.
 
