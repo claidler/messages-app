@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router';
 import { login } from '../queries/user';
 import styles from './form.module.css';
@@ -9,18 +9,17 @@ export const LoginForm = () => {
 	const [username, setUsername] = useState<string>();
 	const [password, setPassword] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>();
+	
+	const onTextInputChange = (e: React.FormEvent<HTMLInputElement>) => (setStateFn: Dispatch<SetStateAction<string>>) => setStateFn(e.currentTarget.value)
 
-	const onInputChange = (
-		input: 'username' | 'password',
-		event: React.FormEvent<HTMLInputElement>
-	) => {
-		if (input === 'username') {
-			setUsername(event.currentTarget.value);
-		}
-		if (input === 'password') {
-			setPassword(event.currentTarget.value);
-		}
-	};
+	const handleUsernameChange = (
+		e: React.FormEvent<HTMLInputElement>
+	) => onTextInputChange(e)(setUsername);
+	
+	const handlePasswordChange = (
+		e: React.FormEvent<HTMLInputElement>
+	) => onTextInputChange(e)(setPassword);
+			
 	const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
 		try {
 			evt.preventDefault();
@@ -49,12 +48,12 @@ export const LoginForm = () => {
 			<form onSubmit={handleSubmit} className={styles.form}>
 				<input
 					placeholder="username"
-					onChange={(evt) => onInputChange('username', evt)}
+					onChange={handleUsernameChange}
 				/>
 				<input
 					placeholder="password"
 					type="password"
-					onChange={(evt) => onInputChange('password', evt)}
+					onChange={handlePasswordChange}
 				/>
 				<button type="submit">Login</button>
 				<div className={styles.errorMessage}>{errorMessage}</div>
